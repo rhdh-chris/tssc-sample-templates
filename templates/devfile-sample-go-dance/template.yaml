@@ -70,7 +70,7 @@ spec:
                   title: Repository Owner
                   type: string
                   ui:help: The organization, user or project that this repo will belong to
-                  
+                  default: rhdh-chris
                 ghHost:
                   title: Repository Server
                   type: string
@@ -173,7 +173,7 @@ spec:
           title: Image Organization
           type: string
           description: The organization, user or project that this repo will belong to
-          
+          default: rhdh-chris
         imageName:
           title: Image Name
           type: string
@@ -309,7 +309,7 @@ spec:
           # actual src image, should be used by tekton PR pipeline to update the image in gitops repo
           srcImage: '${{ parameters.imageRegistry }}/${{ parameters.imageOrg }}/${{ parameters.imageName }}'
           port: 8081
-          argoNS: rhtap-gitops
+          argoNS: openshift-gitops
           argoProject: default
           ciType: ${{ parameters.ciType }}
           gitRepoSlug: ${{ parameters.workspace if parameters.hostType === 'Bitbucket' else (parameters.ghOwner if parameters.hostType === 'GitHub' else parameters.glOwner)  }}/${{ parameters.repoName }}-gitops
@@ -347,7 +347,7 @@ spec:
           # actual src image, should be used by tekton PR pipeline to update the image in gitops repo
           srcImage: '${{ parameters.imageRegistry }}/${{ parameters.imageOrg }}/${{ parameters.imageName }}'
           port: 8081
-          argoNS: rhtap-gitops
+          argoNS: openshift-gitops
           argoProject: default
           hostType: ${{ parameters.hostType }}
           username: ${{ parameters.bbOwner }}
@@ -429,7 +429,7 @@ spec:
         appName: ${{ parameters.name }}-app-of-apps
         # name set in rhdh config
         argoInstance: default
-        namespace: rhtap-gitops
+        namespace: openshift-gitops
         repoUrl: https://${{ parameters.ghHost if parameters.hostType === 'GitHub' else (parameters.glHost if parameters.hostType === 'GitLab' else parameters.bbHost)}}/${{ parameters.workspace if parameters.hostType === 'Bitbucket' else (parameters.ghOwner if parameters.hostType === 'GitHub' else parameters.glOwner)  }}/${{ parameters.repoName }}-gitops.git
         path: './app-of-apps'
   # Outputs are displayed to the user after a successful execution of the template.
